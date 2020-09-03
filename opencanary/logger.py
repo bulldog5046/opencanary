@@ -169,8 +169,8 @@ class PyLogger(LoggerBase):
             import urllib
             url = 'http://' + serverip + '/api/log/'
             req = requests.post(url, json=jsondata, headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.apikey})
-            response = req.text()
-            self.logger.warn(response)
+            #response = req.text()
+            self.logger.warn(req.text())
         except requests.exceptions.RequestException as e:
             self.logger.error(e)
 
