@@ -168,12 +168,10 @@ class PyLogger(LoggerBase):
         try:
             import urllib
             url = 'http://' + serverip + '/api/log/'
-            req = urllib.Request(url, jsondata, {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.apikey})
-            f = urllib.urlopen(req)
-            response = f.read()
+            req = requests.post(url, json=jsondata, headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.apikey})
+            response = req.text()
             self.logger.warn(response)
-            f.close()
-        except urllib.URLError as e:
+        except requests.exceptions.RequestException as e:
             self.logger.error(e)
 
     def log(self, logdata, retry=True):
