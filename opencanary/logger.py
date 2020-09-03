@@ -166,14 +166,14 @@ class PyLogger(LoggerBase):
 
     def post2server(self, serverip, jsondata):
         try:
-            import urllib2
+            import urllib
             url = 'http://' + serverip + '/api/log/'
-            req = urllib2.Request(url, jsondata, {'Content-Type': 'application/json', 'Authorization': 'Bearer '+apikey})
-            f = urllib2.urlopen(req)
+            req = urllib.Request(url, jsondata, {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.apikey})
+            f = urllib.urlopen(req)
             response = f.read()
             self.logger.warn(response)
             f.close()
-        except urllib2.URLError as e:
+        except urllib.URLError as e:
             self.logger.error(e)
 
     def log(self, logdata, retry=True):
